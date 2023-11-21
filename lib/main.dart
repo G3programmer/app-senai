@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_fisico/pages/edit_page.dart';
 
 import 'pages/second_page.dart';
 
@@ -14,10 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'App do Morozini'),
     );
   }
 }
@@ -42,6 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    const double imageRadius = 40;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -52,15 +55,46 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           child: Column(
             children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                  ),
-                  Text(
-                    'Lucas Anaissi',
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    CircleAvatar(
+                      radius: imageRadius,
+                      backgroundColor: Colors.white,
+                      backgroundImage: AssetImage('assets/images/perfil.jfif'),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'G3 Morozini',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => EditPage(),
+                            );
+                          },
+                          child: Text(
+                            'Editar Perfil',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -82,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                'You have pushed the button this many times:',
+                'Clique para elevar o número',
               ),
               Text(
                 '$_counter',
@@ -109,7 +143,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-drawerButton(context, 'Configurações', Icon(Icons.settings)),
 Widget drawerButton(
   BuildContext context,
   String label,
